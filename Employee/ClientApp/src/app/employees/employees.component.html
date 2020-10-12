@@ -1,0 +1,31 @@
+<h2 id="tableLabel">Employees</h2>
+
+<div style="margin: auto; width: 50%; text-align: center;">
+  <p-progressSpinner *ngIf="!forecasts"></p-progressSpinner>
+</div>
+
+<p-table *ngIf="forecasts" [value]="forecasts" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} employees" [rowsPerPageOptions]="[10,25,50]">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-employee>
+    <tr>
+      <td *ngFor="let col of cols; index as i;">
+        <span *ngIf="i < 2">{{employee[col.field]}}</span>
+        <span *ngIf="i == 2">{{employee[col.field] | currency:"USD":"symbol":"1.0-0"}}</span>
+        <span *ngIf="i == 3">{{employee[col.field] | date}}</span>
+        <button *ngIf="i == 4" pButton type="button" label="Estimate Costs" icon="pi pi-user-edit" [routerLink]="'/employee'"></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorleft">
+    <p-button type="button" icon="pi pi-arrow-left" disabled="isFirstPage" styleClass="p-button-text"></p-button>
+  </ng-template>
+  <ng-template pTemplate="paginatorright">
+    <p-button type="button" icon="pi pi-arrow-right" disabled="isLastPage" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-table>
