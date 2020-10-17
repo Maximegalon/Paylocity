@@ -1,5 +1,4 @@
 ﻿using System;
-// using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Employee.Models
@@ -14,9 +13,7 @@ namespace Employee.Models
 
         [Required]
         [DataType(DataType.Currency)]
-        public Int16 Salary { get; set; }
-
-        // public List<string> dependants { get; set; }
+        public Int32 Salary { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime HireDate { get; set; }

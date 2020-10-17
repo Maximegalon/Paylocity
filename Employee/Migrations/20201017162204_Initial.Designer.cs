@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employee.Migrations
 {
     [DbContext(typeof(EmployeeContext))]
-    [Migration("20201010200248_Initial")]
+    [Migration("20201017162204_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,8 +36,8 @@ namespace Employee.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<short>("Salary")
-                        .HasColumnType("smallint");
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

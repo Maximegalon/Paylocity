@@ -14,7 +14,7 @@ namespace Employee.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
-                    Salary = table.Column<short>(nullable: false),
+                    Salary = table.Column<int>(nullable: false),
                     HireDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

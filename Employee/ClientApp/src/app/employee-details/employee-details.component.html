@@ -3,30 +3,35 @@
 <form [formGroup]="formGroup">
   <div class="p-inputgroup">
     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-    <input type="text" pInputText placeholder="Dependant Name" formControlName="dependantName" name="dependantName" id="dependantName" />
+    <input type="text" pInputText placeholder="Enter a dependant Name" formControlName="dependantName" name="dependantName" id="dependantName" />
     <button type="button" pButton pRipple label="Add Dependant" (click)="addDependant($event)" [disabled]="!formGroup.valid"></button>
   </div>
 </form>
 
-<div *ngIf="dependants.length > 0"style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 1rem;">
-  <div>
+<div *ngIf="loading" style="margin: auto; width: 50%; text-align: center;">
+  <p-progressSpinner *ngIf="!employees"></p-progressSpinner>
+</div>
+
+<div *ngIf="!loading" style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 1rem;">
+  <div style="width: 50%;">
     <ng-container *ngFor="let d of dependants; let i = index">
       <div style="margin: .25rem">
-        <span>{{d}}</span>
-        <button pButton type="button" style="transform: scale(0.5); vertical-align: middle;" class="p-button-rounded p-button-danger p-ripple p-button p-component p-button-icon-only pi pi-times p-button-sm" (click)="removeDependant(i)"></button>
+        <span>
+          {{ d.name }}
+          {{ d | bonusmessage }}
+          <button pButton type="button" style="transform: scale(0.5); vertical-align: middle;" class="p-button-rounded p-button-danger p-ripple p-button p-component p-button-icon-only pi pi-times p-button-sm" (click)="removeDependant(i)"></button>
+        </span>
       </div>
-    </ng-container>
+    </ng-container>    
   </div>
-  <div>
+  <div style="width: 50%;">
     <div id="instructions" class="paper">
-      Name has a salary of X/year<br />
-      The take home pay over 26 pay periods is $y/period<br />
-      The cost of benefits for Name is $500 (There is no name based cost reduction)<br />
-      Name has X dependants for an additional cost of $66666<br />
-      * X dependants at $Y/dependants (There is a name based cost reduction)<br />
-      * X dependants at $Y/dependants (There is a NO name based cost reduction)<br />
-      <br />
-      The total cost for the benefits for employee NAME is $5678
+      <ul>
+        <li>{{ employee.name }} has a salary of {{ employee.salary | currency:"USD":"symbol":"1.0-0" }}/year</li>
+        <li>The take home pay over {{ numberOfPayperiods }} pay periods is {{ (employee.salary/numberOfPayperiods) | currency:"USD":"symbol":"1.0-0"}}/period</li>
+        <li>The cost of benefits for {{ employee.name }} is {{ employeeCost | currency:"USD":"symbol":"1.0-0" }}</li>
+        <li *ngIf="this.dependants.length > 0" style="margin: 20px 0 0 0;">The total cost for the benefits for {{ employee.name }} with dependants is {{ employeeTotalCost | currency:"USD":"symbol":"1.0-0" }}</li>
+      </ul>
     </div>
   </div>
 </div>

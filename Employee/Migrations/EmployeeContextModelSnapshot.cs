@@ -34,8 +34,8 @@ namespace Employee.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<short>("Salary")
-                        .HasColumnType("smallint");
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

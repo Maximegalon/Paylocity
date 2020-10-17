@@ -1,5 +1,7 @@
-import { Component, Inject, OnInit  } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { EmployeeService } from '../services/employee/employee.service';
+import { IEmployee } from '../interfaces/IEmployee';
 
 // @TODO: Configure company namespace, instead of "app"
 @Component({
@@ -7,51 +9,35 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './employees.component.html'
 })
 export class EmployeeListComponent implements OnInit {
-  public forecasts: WeatherForecast[];
+  public employees: IEmployee[];
   cols: any[];
-  first = 0;
-  rows = 10;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'employees').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+  constructor(
+    private _employee: EmployeeService,
+    private _router: Router,
+  ) {
   }
 
   ngOnInit() {
     this.cols = [
       { field: 'id', header: 'Employee Number' },
       { field: 'name', header: 'Name' },
-      { field: 'salary', header: 'Salary' },
+      { field: 'salary', header: 'Annual Salary' },
       { field: 'hireDate', header: 'Hire Date' },
       { field: null, header: 'Employee Details' },
     ];
+
+    this._employee.getEmployees().subscribe(
+      (result: IEmployee[]) => {
+        this.employees = result;
+      },
+      error => {
+        alert('Sorry, an error has occured. Please try again.');
+      }
+    );
   }
 
-  next() {
-    this.first = this.first + this.rows;
+  handleButtonClick(employeeId: any): void {
+    this._router.navigate([`/employee/${employeeId}`]);
   }
-
-  prev() {
-    this.first = this.first - this.rows;
-  }
-
-  reset() {
-    this.first = 0;
-  }
-
-  isLastPage(): boolean {
-    return this.forecasts ? this.first === (this.forecasts.length - this.rows) : true;
-  }
-
-  isFirstPage(): boolean {
-    return this.forecasts ? this.first === 0 : true;
-  }
-}
-
-interface WeatherForecast {
-  id: any;
-  name: any;
-  salary: any;
-  hireDate: any;
 }
