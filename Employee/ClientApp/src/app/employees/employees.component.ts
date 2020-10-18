@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../services/employee/employee.service';
-import { IEmployee } from '../interfaces/IEmployee';
+import { IEmployee, ITableColumn } from '../interfaces';
 
 // @TODO: Configure company namespace, instead of "app"
 @Component({
@@ -10,7 +10,7 @@ import { IEmployee } from '../interfaces/IEmployee';
 })
 export class EmployeeListComponent implements OnInit {
   public employees: IEmployee[];
-  cols: any[];
+  cols: ITableColumn[];
 
   constructor(
     private _employee: EmployeeService,
@@ -37,7 +37,13 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
-  handleButtonClick(employeeId: any): void {
+  /**
+  * Operate on the employee selected
+  *
+  * @param {number} employeeId The employee ID selected
+  * @returns void
+  */
+  handleButtonClick(employeeId: number): void {
     this._router.navigate([`/employee/${employeeId}`]);
   }
 }

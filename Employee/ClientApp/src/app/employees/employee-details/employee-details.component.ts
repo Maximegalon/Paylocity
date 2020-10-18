@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EmployeeService } from '../services/employee/employee.service';
-import { IEmployee } from '../interfaces/IEmployee';
-import { IDependant } from '../interfaces/IDependant';
+import { ActivatedRoute } from '@angular/router';
+import { EmployeeService } from '../../services/employee/employee.service';
+import { IEmployee } from '../../interfaces/IEmployee';
+import { IDependant } from '../../interfaces/IDependant';
 
 @Component({
   selector: 'app-employee-details',
@@ -16,7 +15,6 @@ export class EmployeeDetailsComponent implements OnInit {
   employee: IEmployee;
   dependants: IDependant[] = [];
   newdependantname = '';
-  formGroup: FormGroup;
   numberOfPayperiods = 26;
   employeeCost: number;
   employeeTotalCost: number;
@@ -26,12 +24,8 @@ export class EmployeeDetailsComponent implements OnInit {
     private _activatedRoute: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
-    this.employeeId = parseInt(this._activatedRoute.snapshot.paramMap.get('employeeId'));
-
-    this.formGroup = new FormGroup({
-      dependantName: new FormControl('', [Validators.required, Validators.maxLength(200)])
-    });
+  ngOnInit() {
+    this.employeeId = parseInt(this._activatedRoute.snapshot.paramMap.get('employeeId'), 10);
 
     this._employee.getEmployeeDetails(this.employeeId).subscribe(
       (result: IEmployee) => {
@@ -39,24 +33,23 @@ export class EmployeeDetailsComponent implements OnInit {
         this.loading = false;
 
         this.employeeCost = this._employee.calculateEmployeeTotalCost(this.employee, []);
+        this.employeeTotalCost = this.employeeCost;
       },
       error => {
         // @TODO: Throw a toast and handle page gracefully
         alert('Sorry, an error has occured. Please try again.');
       }
     );
-  }  
+  }
 
   /**
   * Assigns a dependant to the employee
   *
+  * @param {string} dependantName The name of the dependant
   * @returns void
   */
-  addDependant(): void {
-    this.dependants.push({ employeeID: this.employeeId, name: this.formGroup.value.dependantName });
-    this.formGroup.patchValue({
-      dependantName: ''
-    });
+  addDependant(dependantName: string): void {
+    this.dependants.push({ employeeID: this.employeeId, name: dependantName });
 
     this.calculateEmployeeTotalCost();
   }
@@ -64,6 +57,7 @@ export class EmployeeDetailsComponent implements OnInit {
   /**
   * Removes a dependant assigned to the employee
   *
+  * @param {number} idx The ordinal location in the array of dependants to remove
   * @returns void
   */
   removeDependant(idx: number): void {
@@ -72,6 +66,11 @@ export class EmployeeDetailsComponent implements OnInit {
     this.calculateEmployeeTotalCost();
   }
 
+  /**
+  * Sets the total employee (without dependants) cost
+  *
+  * @returns void
+  */
   private calculateEmployeeTotalCost(): void {
     this.employeeTotalCost = this._employee.calculateEmployeeTotalCost(this.employee, this.dependants);
   }

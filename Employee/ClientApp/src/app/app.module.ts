@@ -13,23 +13,25 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
 
+import { ComponentsModule } from './components/components.module';
+
+import { BonusMessagePipe } from './employees/employee-details/employee-details.pipe';
+
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeeListComponent } from './employees/employees.component';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
-import { BonusMessagePipe } from './employee-details/employee-details.pipe';
+import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
     EmployeeListComponent,
     EmployeeDetailsComponent,
     BonusMessagePipe,
   ],
   imports: [
+    ComponentsModule,
     TableModule, ButtonModule, ProgressSpinnerModule, InputTextModule, CheckboxModule, RadioButtonModule, RippleModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,

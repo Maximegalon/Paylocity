@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EmployeeService } from '../services/employee/employee.service';
-import { IDependant } from '../interfaces/IDependant';
+import { EmployeeService } from '../../services/employee/employee.service';
+import { IDependant } from '../../interfaces/IDependant';
 
 @Pipe({
   name: 'bonusmessage'

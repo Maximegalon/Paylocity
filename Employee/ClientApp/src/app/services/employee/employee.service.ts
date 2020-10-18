@@ -20,8 +20,8 @@ export class EmployeeService {
   }
 
  /**
- * Get employees
- * 
+ * Get employees from the server
+ *
  * @returns Observable<IEmployee[]>
  */
   getEmployees(): Observable<IEmployee[]> {
@@ -31,6 +31,7 @@ export class EmployeeService {
   /**
   * Get employee details
   *
+  * @param {number} employeeId The employee ID to fetch information
   * @returns Observable<IEmployee>
   */
   getEmployeeDetails(employeeId: number): Observable<IEmployee> {
@@ -39,7 +40,8 @@ export class EmployeeService {
 
   /**
   * Determines if the person gets a discount
-  * 
+  *
+  * @param {IPerson} person The person to check for a discount
   * @returns boolean
   */
   doesPersonGetDiscount(person: IPerson): boolean {
@@ -48,12 +50,20 @@ export class EmployeeService {
     return (name && name.trim().toLowerCase().substring(0, 1) === 'a');
   }
 
-  // @TODO: Inject a config service with the values, don't hard code consts
+  /**
+  * Determines if the person gets a discount
+  *
+  * @param {IEmployee} employee The employee to determine costs for
+  * @param {IDependant[]} dependants The employee's dependants to determine costs for
+  * @returns number
+  */
   calculateEmployeeTotalCost(employee: IEmployee, dependants: IDependant[]): number {
+    // @TODO: Inject a config service with the values, don't hard code consts
     const employeeCost: number = this.EMPLOYEEBENEFITCOST * ((this.doesPersonGetDiscount(employee)) ? (1 - this.EMPLOYEEDISCOUNT) : 1);
     const dependantsCountWithBonus = dependants.filter(d => this.doesPersonGetDiscount(d)).length;
-    const dependantsCost = dependantsCountWithBonus * this.DEPENDANTBENEFITCOST * (1 - this.EMPLOYEEDISCOUNT) + (dependants.length - dependantsCountWithBonus) * this.DEPENDANTBENEFITCOST;
+    const dependantsCost = dependantsCountWithBonus * this.DEPENDANTBENEFITCOST * (1 - this.EMPLOYEEDISCOUNT) +
+      (dependants.length - dependantsCountWithBonus) * this.DEPENDANTBENEFITCOST;
 
-    return employeeCost + dependantsCost;    
+    return employeeCost + dependantsCost;
   }
 }
