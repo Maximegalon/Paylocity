@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IEmployee } from '../../interfaces/IEmployee';
@@ -15,8 +15,8 @@ export class EmployeeService {
   EMPLOYEEDISCOUNT = .1;
   DEPENDANTDISCOUNT = .1;
 
-  constructor(@Inject('BASE_URL') baseUrl: string, private _http: HttpClient) {
-    this.baseUrl = baseUrl;
+  constructor(private _http: HttpClient) {
+    this.baseUrl = this.getBaseUrl();
   }
 
  /**
@@ -65,5 +65,14 @@ export class EmployeeService {
       (dependants.length - dependantsCountWithBonus) * this.DEPENDANTBENEFITCOST;
 
     return employeeCost + dependantsCost;
+  }
+
+  /**
+  * Gets the url to make calls too. This would normally go through auth, middlewear, proxy etc. etc
+  *
+  * @returns string
+  */
+  private getBaseUrl(): string {
+    return document.getElementsByTagName('base')[0].href;
   }
 }

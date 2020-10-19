@@ -2,24 +2,24 @@
 
 <app-entry-bar (selected)="addDependant($event)"></app-entry-bar>
 
-<div *ngIf="loading" style="margin: auto; width: 50%; text-align: center;">
+<div *ngIf="loading" class="spinner">
   <p-progressSpinner *ngIf="!employees"></p-progressSpinner>
 </div>
 
-<div *ngIf="!loading" style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 1rem;">
-  <div style="width: 50%;">
+<div *ngIf="!loading" class="information">
+  <div>
     <ng-container *ngFor="let d of dependants; let i = index">
-      <div style="margin: .25rem">
+      <div class="dependants">
         <span>
           {{ d.name }}
           {{ d | bonusmessage }}
-          <button pButton type="button" style="transform: scale(0.5); vertical-align: middle;" class="p-button-rounded p-button-danger p-ripple p-button p-component p-button-icon-only pi pi-times p-button-sm" (click)="removeDependant(i)"></button>
+          <button pButton type="button" class="enterbutton p-button-rounded p-button-danger p-ripple p-button p-component p-button-icon-only pi pi-times p-button-sm"  (click)="removeDependant(i)"></button>
         </span>
       </div>
     </ng-container>
   </div>
-  <div style="width: 50%;">
-    <div id="instructions" class="paper">
+  <div>
+    <div class="summary">
       <ul>
         <li>{{ employee.name }} has a salary of {{ employee.salary | currency:"USD":"symbol":"1.0-0" }}/year</li>
         <li>The take home pay over {{ numberOfPayperiods }} pay periods is {{ (employee.salary/numberOfPayperiods) | currency:"USD":"symbol":"1.0-0"}}/period</li>

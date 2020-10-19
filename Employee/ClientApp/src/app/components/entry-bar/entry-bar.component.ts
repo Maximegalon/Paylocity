@@ -3,8 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-entry-bar',
-  templateUrl: './entry-bar.component.html',
-  styleUrls: ['./entry-bar.component.css']
+  templateUrl: './entry-bar.component.html'
 })
 export class EntryBarComponent implements OnInit {
   @Output() selected = new EventEmitter<string>();

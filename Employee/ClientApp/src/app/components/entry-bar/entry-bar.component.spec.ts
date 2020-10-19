@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EntryBarComponent } from './entry-bar.component';
 
 describe('EntryBarComponent', () => {
@@ -8,7 +8,8 @@ describe('EntryBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EntryBarComponent ]
+      imports: [FormsModule, ReactiveFormsModule],
+      declarations: [ EntryBarComponent ],
     })
     .compileComponents();
   }));
