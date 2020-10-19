@@ -8,7 +8,10 @@
     "build:ssr": "ng run Employee:server:dev",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "storybook": "npm run docs:json && start-storybook -p 6006",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "build-storybook": "npm run docs:json && build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +26,8 @@
     "@angular/platform-server": "8.2.12",
     "@angular/router": "8.2.12",
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
+    "@storybook/addon-centered": "^5.3.21",
+    "@storybook/addon-knobs": "^6.0.26",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.3.1",
     "core-js": "^3.3.3",
@@ -39,9 +44,18 @@
     "@angular/cli": "^8.3.26",
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "^8.2.12",
+    "@babel/core": "^7.12.3",
+    "@compodoc/compodoc": "^1.1.11",
+    "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-controls": "^6.0.26",
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/addon-storysource": "^6.0.26",
+    "@storybook/angular": "^6.0.26",
     "@types/jasmine": "~3.4.4",
     "@types/jasminewd2": "~2.0.8",
-    "@types/node": "~12.11.6",
+    "@types/node": "^12.12.68",
+    "babel-loader": "^8.1.0",
     "codelyzer": "^5.2.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -51,6 +65,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "ng-mocks": "^10.3.0",
+    "react-is": "^16.13.1",
     "typescript": "3.5.3"
   },
   "optionalDependencies": {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -6,6 +6,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './entry-bar.component.html'
 })
 export class EntryBarComponent implements OnInit {
+  @Input() buttonLabel;
+  @Input() textPlaceholder;
   @Output() selected = new EventEmitter<string>();
 
   formGroup: FormGroup;

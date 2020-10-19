@@ -1,7 +1,7 @@
 <form [formGroup]="formGroup">
   <div class="p-inputgroup">
     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-    <input type="text" pInputText placeholder="Enter a dependant Name" formControlName="dependantName" name="dependantName" id="dependantName" (keyup.enter)="selectionMade()"/>
-    <button type="button" pButton pRipple label="Add Dependant" (click)="selectionMade()" [disabled]="!formGroup.valid"></button>
+    <input type="text" pInputText placeholder="{{textPlaceholder}}" formControlName="dependantName" name="dependantName" id="dependantName" (keyup.enter)="selectionMade()"/>
+    <button type="button" pButton pRipple label="{{buttonLabel}}" (click)="selectionMade()" [disabled]="!formGroup.valid"></button>
   </div>
 </form>

@@ -1,6 +1,6 @@
 <p>Please enter the employees dependants for an estimate on benefits cost</p>
 
-<app-entry-bar (selected)="addDependant($event)"></app-entry-bar>
+<app-entry-bar (selected)="addDependant($event)" [textPlaceholder]="'Enter a dependant Name'" [buttonLabel]="'Add Dependant'"></app-entry-bar>
 
 <div *ngIf="loading" class="spinner">
   <p-progressSpinner *ngIf="!employees"></p-progressSpinner>
