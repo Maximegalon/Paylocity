@@ -1,4 +1,6 @@
 :host {
+  width: 100%;
+
   .spinner {
     margin: auto;
     width: 50%;
@@ -15,7 +17,7 @@
       width: 50%;
 
       .dependants, .summary {
-        padding: .25rem
+        padding: .25rem;
       }
     }
   }

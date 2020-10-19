@@ -6,7 +6,8 @@ import { IEmployee, ITableColumn } from '../interfaces';
 // @TODO: Configure company namespace, instead of "app"
 @Component({
   selector: 'app-employees',
-  templateUrl: './employees.component.html'
+  templateUrl: './employees.component.html',
+  styleUrls: ['./employee.component.scss'],
 })
 export class EmployeeListComponent implements OnInit {
   public employees: IEmployee[];
